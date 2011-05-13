@@ -1,3 +1,5 @@
+package eu.henkelmann.sbt
+
 import _root_.sbt._
 
 trait JUnitXMLReport extends BasicScalaProject {

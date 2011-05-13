@@ -2,6 +2,14 @@ import sbt._
 
 
 class JUnitXmlListenerProject(info: ProjectInfo) extends PluginProject(info) {
-    override def managedStyle = ManagedStyle.Maven    
-    lazy val publishTo = Resolver.file("Development Repo", new java.io.File((Path.userHome /"srv"/"maven").toString))
+  val publishTo = if (version.toString.endsWith("-SNAPSHOT")) {
+    "Scala Tools Nexus" at "http://nexus/nexus/content/repositories/snapshots"
+  } else {
+    "Scala Tools Nexus" at "http://nexus/nexus/content/repositories/releases"
+  }
+
+  override def managedStyle = ManagedStyle.Maven
+
+  val efgfpNexusSnapshotsRepository = "Nexus Snapshots" at "http://nexus/nexus/content/groups/public-snapshots"
+  val efgfpNexusReleasesRepository = "Nexus Releases" at "http://nexus/nexus/content/groups/public"
 }
